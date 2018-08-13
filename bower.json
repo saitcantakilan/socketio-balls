@@ -1,0 +1,14 @@
+{
+  "name": "socketio-balls",
+  "description": "",
+  "main": "",
+  "authors": [
+    "Saitcan TAKILAN <sait@kodanka.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/saitcantakilan/socketio-balls",
+  "dependencies": {
+    "angular": "^1.7.3",
+    "semantic": "^2.3.3"
+  }
+}
