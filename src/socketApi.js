@@ -16,14 +16,19 @@ io.on('connection',(socket)=>{
                 x: 0,
                 y: 0
             }
-        }
-
+        };
         const userData = Object.assign(data,defaultData);
         users[socket.id] = userData; 
         
-        socket.broadcast.emit('newUser', userData);
-        
+        socket.broadcast.emit('newUser', users[socket.id]);        
     });
+
+    socket.on('disconnect', () => {
+        socket.broadcast.emit('disUser', users[socket.id]);
+        delete users[socket.id];
+    });
+
+
 });
 
 module.exports = socketApi;
