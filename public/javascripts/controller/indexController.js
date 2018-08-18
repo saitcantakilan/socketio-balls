@@ -1,5 +1,6 @@
 app.controller('indexController', ['$scope', 'indexFactory', ($scope, indexFactory)=> {
     $scope.messages = [ ];
+    $scope.players = { };
     $scope.init = () =>{
         const userName = prompt('Kullanıcı Adı :');
         if(userName)
@@ -17,6 +18,11 @@ app.controller('indexController', ['$scope', 'indexFactory', ($scope, indexFacto
         indexFactory.connectSocket('http://localhost:3000', connectionOptions)
         .then((socket) => {
             socket.emit('newUser', { userName });
+
+            socket.on('initPlayers', (players) => {
+                $scope.players = players;
+                $scope.$apply();
+            });
 
             socket.on('newUser', (data) => {
                 const messageData = {
@@ -40,7 +46,7 @@ app.controller('indexController', ['$scope', 'indexFactory', ($scope, indexFacto
                     }, // info
                     userName: data.userName
                 };
-                
+
                 $scope.messages.push(messageData);
                 $scope.$apply();
             });
