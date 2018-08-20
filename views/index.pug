@@ -16,7 +16,7 @@ block content
               span.name {{ player.userName }}
               //.message 
          
-        .ui.items.chat
+        .ui.items.chat#chat-area
           .item(ng-repeat="message in messages")
             .content(ng-if="!message.type.code")
               span [SERVER] &nbsp;
@@ -25,8 +25,13 @@ block content
                 | Ayrıldı.
               .description.message(ng-if="message.type.message")
                 | Katıldı.
+
+            .content(ng-if="message.type.code")              
+              a.header.name {{ message.userName }} &nbsp;
+              .description.message
+                | {{ message.text }}
           
-        .ui.action.input.fluid
-          input(type='text', placeholder='Bir mesaj yaz...')
-          button.ui.button Gönder
+        form.ui.action.input.fluid(ng-submit="newMessage()")
+          input(ng-model='message', placeholder='Bir mesaj yaz...')
+          button.ui.button(type="submit") Gönder
 
